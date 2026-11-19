@@ -31,8 +31,21 @@ testRelations <- function (data, trait, type, restrict = rep(TRUE, ncol(data)), 
           if (i%%1000 == 0) {
             print(i)
           }
-          tmp <- wilcox.test(data[i, restrict] ~ trait[restrict], 
-                             paired = paired)
+          if (paired) {
+            # the formula method no longer accepts 'paired' (R >= 4.4); its model
+            # frame (which applies the session's na.action), its two-level check
+            # and its split are kept as that method performed them
+            mf <- stats::model.frame(data[i, restrict] ~ trait[restrict])
+            g <- factor(mf[[2L]])
+            if (nlevels(g) != 2L) {
+              stop("grouping factor must have exactly 2 levels")
+            }
+            DATA <- split(mf[[1L]], g)
+            tmp <- wilcox.test(x = DATA[[1]], y = DATA[[2]], paired = TRUE)
+          }
+          else {
+            tmp <- wilcox.test(data[i, restrict] ~ trait[restrict])
+          }
           res[i, "p"] <- tmp$p.value
           if (mean(data[i, restrict][trait == trait.val[1]]) > 
                 mean(data[i, restrict][trait == trait.val[2]])) {
@@ -50,8 +63,21 @@ testRelations <- function (data, trait, type, restrict = rep(TRUE, ncol(data)), 
           if (i%%1000 == 0) {
             print(i)
           }
-          tmp <- t.test(data[i, restrict] ~ trait[restrict], 
-                        paired = paired)
+          if (paired) {
+            # the formula method no longer accepts 'paired' (R >= 4.4); its model
+            # frame (which applies the session's na.action), its two-level check
+            # and its split are kept as that method performed them
+            mf <- stats::model.frame(data[i, restrict] ~ trait[restrict])
+            g <- factor(mf[[2L]])
+            if (nlevels(g) != 2L) {
+              stop("grouping factor must have exactly 2 levels")
+            }
+            DATA <- split(mf[[1L]], g)
+            tmp <- t.test(x = DATA[[1]], y = DATA[[2]], paired = TRUE)
+          }
+          else {
+            tmp <- t.test(data[i, restrict] ~ trait[restrict])
+          }
           res[i, "p"] <- tmp$p.value
           if (mean(data[i, restrict][trait == trait.val[1]]) > 
                 mean(data[i, restrict][trait == trait.val[2]])) {
@@ -336,7 +362,7 @@ filt.hierClust <- function (mat.rho, hclust.method = "ward", side.col.c = NULL, 
 #' @param modelobject : a linear model object as produced by lm()
 #' @return a p-value
 lmp <- function (modelobject) {
-  if (class(modelobject) != "lm") stop("Not an object of class 'lm' ")
+  if (class(modelobject)[1L] != "lm") stop("Not an object of class 'lm' ")
   f <- summary(modelobject)$fstatistic
   p <- pf(f[1],f[2],f[3],lower.tail=F)
   attributes(p) <- NULL

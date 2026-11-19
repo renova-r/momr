@@ -1,13 +1,16 @@
 Package: momr
 Title: Mining Metaomics Data (MetaOMineR)
-Version: 1.1
-Date: 2015-07-24
-Author: Edi Prifti, Emmanuelle Le Chatelier
+Version: 1.1.9001
+Authors@R: c(person(given = "Edi", family = "Prifti",
+                    role = c("aut", "cre"), email = "edi.prifti@gmail.com"),
+             person(given = "Emmanuelle", family = "Le Chatelier", role = "aut"))
+Author: Edi Prifti [aut, cre], Emmanuelle Le Chatelier [aut]
 Maintainer: Edi Prifti <edi.prifti@gmail.com>
 Description: 'MetaOMineR' suite is a set of R packages that offers many functions and modules needed for the analyses 
     of quantitative metagenomics data. 'momr' is the core package and contains routines for biomarker identification and exploration.
     Developed since the beginning of field, 'momr' has evolved and is structured around the different modules 
     such as preprocessing, analysis, vizualisation, etc. See package help for more information.
+    Compatibility updates by Renova.
 License: Artistic-2.0
 Depends: R (>= 2.10)
 Imports: Hmisc, gplots, nortest

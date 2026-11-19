@@ -48,15 +48,13 @@
 \references{
   Le Chatelier, Emmanuelle, Trine Nielsen, Junjie Qin, Edi Prifti, Falk Hildebrand, Gwen Falony, Mathieu Almeida, et al. "Richness of Human Gut Microbiome Correlates with Metabolic Markers." Nature 500, no. 7464: 541???546.
 }
-\keyword{ 
-  package
-  shotgun metagenomics
-  MGS
-  MetaGenomicSpecies
-  data mining
-  biomarker selection
-  metagenomics
-}
+\keyword{package}
+\concept{shotgun metagenomics}
+\concept{MGS}
+\concept{MetaGenomicSpecies}
+\concept{data mining}
+\concept{biomarker selection}
+\concept{metagenomics}
 \examples{
 %% ~~ simple examples of the most important functions ~~
   
